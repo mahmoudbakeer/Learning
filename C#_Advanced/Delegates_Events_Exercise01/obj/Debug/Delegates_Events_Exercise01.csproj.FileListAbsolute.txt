@@ -1,7 +1,0 @@
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\bin\Debug\Delegates_Events_Exercise01.exe.config
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\bin\Debug\Delegates_Events_Exercise01.exe
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\bin\Debug\Delegates_Events_Exercise01.pdb
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\obj\Debug\Delegates_Events_Exercise01.csproj.AssemblyReference.cache
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\obj\Debug\Delegates_Events_Exercise01.csproj.CoreCompileInputs.cache
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\obj\Debug\Delegates_Events_Exercise01.exe
-C:\Users\mahmo\dir\C#_Advanced\Delegates_Events_Exercise01\obj\Debug\Delegates_Events_Exercise01.pdb
