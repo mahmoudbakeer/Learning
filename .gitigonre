@@ -1,0 +1,75 @@
+# =========================
+# Build results
+# =========================
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+Debug/
+Release/
+
+# C++ specific
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.idb
+*.exe
+*.dll
+*.lib
+
+# =========================
+# Visual Studio files
+# =========================
+.vs/
+*.user
+*.userossc
+*.suo
+*.rsuser
+*.sln.docstates
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# NuGet
+# =========================
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# =========================
+# .NET Core
+# =========================
+*.runtimeconfig.dev.json
+
+# =========================
+# Resharper / Rider (optional)
+# =========================
+_ReSharper*/
+*.DotSettings.user
+
+# =========================
+# CMake (if used)
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+compile_commands.json
+
+# =========================
+# Windows OS files
+# =========================
+Thumbs.db
+Desktop.ini
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.cache

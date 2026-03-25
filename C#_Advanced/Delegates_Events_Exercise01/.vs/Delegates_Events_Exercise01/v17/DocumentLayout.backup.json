@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{85046BB0-1CB4-4522-97EF-FCB4E8EC9D72}|Delegates_Events_Exercise01.csproj|c:\\users\\mahmo\\dir\\c#_advanced\\delegates_events_exercise01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85046BB0-1CB4-4522-97EF-FCB4E8EC9D72}|Delegates_Events_Exercise01.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85046BB0-1CB4-4522-97EF-FCB4E8EC9D72}|Delegates_Events_Exercise01.csproj|c:\\users\\mahmo\\dir\\c#_advanced\\delegates_events_exercise01\\gradingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85046BB0-1CB4-4522-97EF-FCB4E8EC9D72}|Delegates_Events_Exercise01.csproj|solutionrelative:gradingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85046BB0-1CB4-4522-97EF-FCB4E8EC9D72}|Delegates_Events_Exercise01.csproj|c:\\users\\mahmo\\dir\\c#_advanced\\delegates_events_exercise01\\clsstudent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85046BB0-1CB4-4522-97EF-FCB4E8EC9D72}|Delegates_Events_Exercise01.csproj|solutionrelative:clsstudent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GradingSystem.cs",
+              "DocumentMoniker": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\GradingSystem.cs",
+              "RelativeDocumentMoniker": "GradingSystem.cs",
+              "ToolTip": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\GradingSystem.cs*",
+              "RelativeToolTip": "GradingSystem.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:29:28.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "clsStudent.cs",
+              "DocumentMoniker": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\clsStudent.cs",
+              "RelativeDocumentMoniker": "clsStudent.cs",
+              "ToolTip": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\clsStudent.cs*",
+              "RelativeToolTip": "clsStudent.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:20:57.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\mahmo\\dir\\C#_Advanced\\Delegates_Events_Exercise01\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAD4vyYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:20:28.918Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
