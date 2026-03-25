@@ -18,13 +18,16 @@ namespace Delegates_EventHandler_Exercise02
                 this system represents the EventHandler use in multiple cases
                 demonstrating the work of it and exercising on the observer pattern in SOLID principles
              */
-            clsSensor sensor = new clsSensor();
+            clsBroker broker = new clsBroker();
+            clsSensor sensor = new clsSensor(broker);
             clsAlarm alarm = new clsAlarm(20); // initial value
             clsDisplay display = new clsDisplay();
 
             // subscribtion in Event Handler
-            sensor.SensorChanged += alarm.FireAlarm;
-            sensor.SensorChanged += display.TempratureDisplay;
+            alarm.Subscribe(broker);
+            display.Subscribe(broker);
+            //sensor.SensorChanged += alarm.FireAlarm;
+            //sensor.SensorChanged += display.TempratureDisplay;
 
 
             while (true)

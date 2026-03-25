@@ -9,8 +9,11 @@ namespace Delegates_EventHandler_Exercise02
 {
     public class clsDisplay
     {
-
-        public void TempratureDisplay(object sender, TempEventArgs e)
+        public void Subscribe(clsBroker Broker)
+        {
+            Broker.Subscribe("TempChanged", TempratureDisplay);
+        }
+        public void TempratureDisplay(TempEventArgs e)
         {
             Console.WriteLine($"the temperature was {e.PrevTemp} and changed to {e.NewTemp}");
         }

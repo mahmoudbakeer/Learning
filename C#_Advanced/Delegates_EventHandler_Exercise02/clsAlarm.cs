@@ -16,9 +16,13 @@ namespace Delegates_EventHandler_Exercise02
         }
         public void SetAlarmThreshold(int value)
         {
-               Alarmthreshold = value;
+            Alarmthreshold = value;
+        }   
+        public void Subscribe(clsBroker Broker)
+        {
+            Broker.Subscribe("TempChanged", FireAlarm);
         }
-        public void FireAlarm(object sender , TempEventArgs e)
+        public void FireAlarm(TempEventArgs e)
         {
             if (e.NewTemp > Alarmthreshold) Console.WriteLine($"Take care its to hot and the temprature exceeded the threshold {Alarmthreshold}");
         }
