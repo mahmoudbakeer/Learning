@@ -98,5 +98,30 @@ namespace CRUDvsT_SQL
             }
             return rowAffected;
         }
+        public static DataTable GetValues()
+        {
+            DataTable dataTable = new DataTable();
+            string query = @"select PerformanceCategory , count(*) as NumberOfEmployees, avg(Salary) as AvgSalary from 
+                    (   select Salary , Name , ID ,
+                            case
+                                when PerformanceRating >= 90 then 'High'
+                                when PerformanceRating >= 60 then 'Medium'
+                                else 'Low' 
+                            end as PerformanceCategory from Employees2
+                                                ) as r group by PerformanceCategory ;";
+
+            using(SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        dataTable.Load(reader);
+                    }
+                }
+            }
+            return dataTable;
+        }
     }
 }

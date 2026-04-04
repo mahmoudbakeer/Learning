@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Diagnostics;
+using static CRUDvsT_SQL.EmployeesReport;
 
 namespace CRUDvsT_SQL
 {
@@ -9,23 +10,40 @@ namespace CRUDvsT_SQL
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            DAEmployee.openFirstConnection(); 
+            DAEmployee.openFirstConnection();
             stopwatch.Stop();
             Console.WriteLine($"The Time taken to initialize the connection pool is : {stopwatch.ElapsedMilliseconds} ms");
             // first connection take much more time than the rest
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("The Updation on salary Using TSQL operations: ");
             Stopwatch stopwatch1 = new Stopwatch();
             stopwatch1.Start();
-            UpdateUsingTSql();
+            ReportUsingTsql();
             stopwatch1.Stop();
             Console.WriteLine($"The Time taken is : {stopwatch1.ElapsedMilliseconds} ms");
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("The Updation on salary Using c# crud operations: ");
             Stopwatch stopwatch2 = new Stopwatch();
             stopwatch2.Start();
-            UpdateUsingCSharp();
+            ReportUsingCSharp();
             stopwatch2.Stop();
             Console.WriteLine($"The Time taken is : {stopwatch2.ElapsedMilliseconds} ms");
-        
+            //// first connection take much more time than the rest
+            //Console.WriteLine("The Updation on salary Using TSQL operations: ");
+            //Stopwatch stopwatch1 = new Stopwatch();
+            //stopwatch1.Start();
+            //UpdateUsingTSql();
+            //stopwatch1.Stop();
+            //Console.WriteLine($"The Time taken is : {stopwatch1.ElapsedMilliseconds} ms");
+            //Console.WriteLine("The Updation on salary Using c# crud operations: ");
+            //Stopwatch stopwatch2 = new Stopwatch();
+            //stopwatch2.Start();
+            //UpdateUsingCSharp();
+            //stopwatch2.Stop();
+            //Console.WriteLine($"The Time taken is : {stopwatch2.ElapsedMilliseconds} ms");
+
         }
 
         public static void UpdateUsingCSharp()
@@ -61,6 +79,41 @@ namespace CRUDvsT_SQL
         {
             int rows = DAEmployee.UpdateEmployeesSalaryUsingTSQL();
             Console.WriteLine($"The rows affected {rows}");
+        }
+        public static void ReportUsingCSharp()
+        {
+            EmployeesReport Lowreport = new EmployeesReport(EmployeesReport.enLevel.Low);
+            EmployeesReport Medreport = new EmployeesReport(EmployeesReport.enLevel.Medium);
+            EmployeesReport Highreport = new EmployeesReport(EmployeesReport.enLevel.High);
+            List<Employee> employees = Employee.GetListOfEmployees();
+            foreach (Employee employee in employees)
+            {
+                if(employee.PerformanceRate >= 90 ) Highreport.employees.Add(employee);
+                else if (employee.PerformanceRate >= 60) Medreport.employees.Add(employee);
+                else Lowreport.employees.Add(employee);
+            }
+
+            Lowreport.Print();
+            Console.WriteLine();
+            Medreport.Print();
+            Console.WriteLine();
+            Highreport.Print();
+        }
+        public static void ReportUsingTsql ()
+        {
+            DataTable dt = DAEmployee.GetValues();
+            foreach (DataRow row in dt.Rows)
+            {
+                Console.WriteLine();
+                Console.WriteLine("=====================================================");
+                Console.WriteLine($"The Category is {row["PerformanceCategory"]}");
+                Console.WriteLine($"The number of employees is {row["NumberOfEmployees"]}");
+                Console.WriteLine($"The average salary is {row["AvgSalary"]}");
+                Console.WriteLine("=====================================================");
+                Console.WriteLine();
+
+            }
+
         }
     }
 }

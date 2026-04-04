@@ -52,7 +52,6 @@ namespace CRUDvsT_SQL
                                         ))
                                         .ToList();
         }
-
         public bool Update()
         {
             return DAEmployee.UpdateEmployeeSalary(this);
