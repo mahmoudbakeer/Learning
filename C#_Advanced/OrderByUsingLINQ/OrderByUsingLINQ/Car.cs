@@ -141,5 +141,21 @@ namespace LINQQueries
             return cars;
         }
     }
+    public class CarDto
+    {
+        public int Id { get; set; }
+        public string Brand { get; set; }
+        public int Year { get; set; }
+        public decimal Price { get; set; }
+        public int index { get; set; }
+        public CarDto(int id , string brand , int year , decimal price , int index)
+        {
+            Id =id;
+            Brand = brand;
+            Year = year;
+            Price = price;
+            this.index = index;
+        }
+    }
 
 }
