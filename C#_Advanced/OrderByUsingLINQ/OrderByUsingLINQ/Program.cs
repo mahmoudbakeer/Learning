@@ -4,163 +4,143 @@
     {
         static void Main(string[] args)
         {
-
             // OrderBy : Sorts the elements of a sequence in ascending order according to a key
-            // OrderByDescending : Sorts the elements of a sequence in ascending order by using a specified comparer.
+            // OrderByDescending : Sorts the elements of a sequence in descending order according to a key
 
             List<Car> cars = Car.GetCars();
+
             // var res = cars.OrderBy(c => c.Year);
-            //var res = cars.OrderByDescending(c => c.Price);
+            // var res = cars.OrderByDescending(c => c.Price);
+
+            // var res = cars
+            //     .OrderBy(c => c.Brand)
+            //     .ThenBy(c => c.Price)
+            //     .ThenByDescending(c => c.Year);
 
 
-            //var res = cars
-            //    .OrderBy(c => c.Brand)
-            //    .ThenBy(c => c.Price)
-            //    .ThenByDescending(c => c.Year);
+            // .Order() sorts elements directly if the type implements IComparable (e.g., int, string)
+            // For complex objects (like Car), use OrderBy() with a key selector
+            // .OrderDescending() is the reverse of Order()
 
 
-            // .Order() sorts a collection whose elements are directly comparable (e.g., int, string).
-            // It works only when the type implements IComparable or a default comparer exists.
-            // For complex objects (like Car), use OrderBy() and specify a key to sort by.
+            // .Any() returns true if there is at least one element
+            // .Any(predicate) returns true if at least one element satisfies the condition
 
-            // .OrderDescending() does the exact opposite of .Order()
-
-
+            // .All(predicate) returns true if ALL elements satisfy the condition
+            // It stops and returns false at the first element that does NOT satisfy the condition
 
 
-            // .Any() returns true if there is at least one element in the sequence 
-            // .Any(Predicat) return true if found at least one element meets the condition of the predicate
+            // .Append(element) adds an element at the end (returns new sequence, does NOT modify original)
+            // .Prepend(element) adds an element at the beginning (returns new sequence)
 
 
-            // .All(Predicate) only one overload and returns true if all the elements meets the Predicate condition
-            // means it will loop on the data source and return false on the first element that does not satisfy the Predicate condition
-            // if all the elements meets the Predicate condition then it will return true
+            // .Count() returns the number of elements (returns 0 if empty)
+            // .Count(predicate) returns number of elements that satisfy the condition
+            // .LongCount() same as Count but supports very large numbers (long)
 
 
+            // Example:
+            // long[] numbers = new long[] { 1, 2, 3, 4, 5, 20000000000 };
+            // var res = numbers.Sum();
+            // Console.WriteLine($"The sum of numbers is : {res}");
 
-            // .Append(element) append { add at the end } the element at the end of the collection
-            // .Prepend(element) add the element at the begaining of the collection 
+            // var res = cars.Sum(car => car.Price);
+            // Console.WriteLine($"The sum of Prices is : {res}");
 
-
-
-
-
-            // .Count() returns the number of elements / record in the collection
-            // .Count(Predicate) returns the number of elements / record in the collection that satisfy the Predicate condition
-            // it will return exception if the collection is empty or it is number of records larger than int32 which is 2,14 billion
-            // .LongCount() and .LongCount(Predicate) is same as .Count() and .Count(Predicate) but the number of possible records is long , i think it is 10^9
-            // var res = cars.CountBy( c => c.Make); // will return keyValuePair<key , value> count using grouping
-
-
-
-
-            // Sum(x => x.RequiredSumedColumn) Computes the sum of a sequence of any sumable type values.
-
-
-            //long[] numbers = new long[] { 1, 2, 3, 4, 5, 20000000000 };
-            //// 
-            //var res = numbers.Sum();
-            //Console.WriteLine($"The sum of numbers is : {res}");
-
-
-
-            //var res = cars.Sum(car => car.Price);
-            //Console.WriteLine($"The sum of Pricese is : {res}");
-
-
-
-            // use int.Parse("string") when you want to convert string into other type 
-            // use convert.ToType() when you want to convert anyType to other type 
 
             // var res = cars.Average(c => c.Year);
-            //Console.WriteLine($"The Avg of Years is : {Math.Floor(res)}");
+            // Console.WriteLine($"The Avg of Years is : {Math.Floor(res)}");
 
 
-            // .Max() extension returns the greatest value in the given sequence 
-            // .Max(x => x.ColumnName) returns the greates value int the column
+            // .Max() returns the greatest value in the sequence
+            // .Max(x => x.Property) returns the greatest value of that property
 
-
-
-            // .MaxBy() return the TSource where for a given selector has the maximun value
-            // 
+            // .MaxBy() returns the object that has the maximum value
             // var res = cars.MaxBy(x => x.Price);
 
-
-            // samething but the opposite for .Min() and .MinBy()
-
-            //string str = "the dog under the water";
-            //List<string> sList = str.Split(' ').ToList(); // split return type [] not list
-            //string res = sList.Aggregate((acc, next) =>
-
-            //{
-            //    return next + acc;
-            //}
-            //);
+            // Same idea for .Min() and .MinBy()
 
 
-            //Console.WriteLine(res); 
-            //Car.Print([res]);
+            // string str = "the dog under the water";
+            // List<string> sList = str.Split(' ').ToList();
+
+            // string res = sList.Aggregate((acc, next) =>
+            // {
+            //     return next + acc;
+            // });
+
+            // Console.WriteLine(res);
 
 
-            // using select we can transform any type of objects into another type 
+            // Select: transforms each element into another form
 
-            //var res = cars
-            //    .Select(c => 
-            //    new CarDto(c.Id,c.Brand,c.Year,c.Price)
-            //    );
-            //foreach(var c in res)
-            //{
-            //    Console.WriteLine($"{c.Id} - {c.Brand} - {c.Year}  - {c.Price}");
-            //}
-            // we can also take the index from the second overload of the .Select() extenstion in this way 
-            // the index start from zero same as array and assign value for each record retrieved and increamented by one
+            // var res = cars
+            //     .Select(c => new CarDto(c.Id, c.Brand, c.Year, c.Price));
 
-            //var res = cars
-            //    .Select((c , i)=>
-            //    new CarDto(c.Id, c.Brand, c.Year, c.Price , i)
-            //    );
-            //foreach (var c in res)
-            //{
-            //    Console.WriteLine($"{c.Id} - {c.Brand} - {c.Year}  - {c.Price} - {c.index}");
-            //}
+            // foreach (var c in res)
+            // {
+            //     Console.WriteLine($"{c.Id} - {c.Brand} - {c.Year} - {c.Price}");
+            // }
 
-            PetOwner[] petOwners =
-        { 
-          new PetOwner { Name="Higa",
-              Pets = new List<string>{ "Scruffy", "Sam" } },
-          new PetOwner { Name="Ashkenazi",
-              Pets = new List<string>{ "Walker", "Sugar" } },
-          new PetOwner { Name="Price",
-              Pets = new List<string>{ "Scratches", "Diesel" } },
-          new PetOwner { Name="Hines",
-              Pets = new List<string>{ "Dusty" } } };
 
-            // Project the pet owner's name and the pet's name.
-            var query =
-                petOwners
-                .SelectMany(petOwner => petOwner.Pets, (petOwner, petName) => new { petOwner, petName });
+            // Select with index
 
-           var nquery = query
-                .Select(ownerAndPet =>
-                        new
-                        {
-                            Owner = ownerAndPet.petOwner.Name,
-                            Pet = ownerAndPet.petName
-                        }
-                );
+            // var res = cars
+            //     .Select((c, i) =>
+            //         new CarDto(c.Id, c.Brand, c.Year, c.Price, i)
+            //     );
 
-            // Print the results.
-            foreach (var obj in query)
-            {
-                Console.WriteLine(obj);
-            }
+
+            // SelectMany: flattens collections
+
+            // PetOwner[] petOwners =
+            // {
+            //     new PetOwner { Name="Higa", Pets = new List<string>{ "Scruffy", "Sam" } },
+            //     new PetOwner { Name="Ashkenazi", Pets = new List<string>{ "Walker", "Sugar" } },
+            //     new PetOwner { Name="Price", Pets = new List<string>{ "Scratches", "Diesel" } },
+            //     new PetOwner { Name="Hines", Pets = new List<string>{ "Dusty" } }
+            // };
+
+            // var query = petOwners
+            //     .SelectMany(petOwner => petOwner.Pets,
+            //         (petOwner, petName) => new { petOwner, petName });
+
+            // var nquery = query.Select(x => new
+            // {
+            //     Owner = x.petOwner.Name,
+            //     Pet = x.petName
+            // });
+
+            // foreach (var obj in nquery)
+            // {
+            //     Console.WriteLine($"{obj.Owner} - {obj.Pet}");
+            // }
+
+
+            // Empty & DefaultIfEmpty
+
+            // var emptyList = Enumerable.Empty<Car>();
+            // Console.WriteLine(emptyList);
+
+            // IEnumerable<Car> emptyCars = Enumerable.Empty<Car>();
+
+            // var defaultResult = emptyCars.DefaultIfEmpty(
+            //     new Car
+            //     {
+            //         Id = 1001,
+            //         Brand = "BMW",
+            //         Color = "Red",
+            //         Model = "IDK",
+            //         Price = 30000,
+            //         Year = 2022
+            //     });
+
         }
-        class PetOwner
-        {
-            public string Name { get; set; }
-            public List<string> Pets { get; set; }
-        }
-
-
     }
+
+    // class PetOwner
+    // {
+    //     public string Name { get; set; }
+    //     public List<string> Pets { get; set; }
+    // }
 }
