@@ -135,6 +135,38 @@
             //         Year = 2022
             //     });
 
+
+            // more examples on selectMany
+
+            List<Car> EditedCars = [
+                new Car { Id = 1, Brand = "BMW", Model = "330i", Color = "Black", Price = 45000, Year = 2023, Safty = ["ABS", "Airbags", "Lane Departure Warning", "Active Blind Spot Detection"] },
+                new Car { Id = 2, Brand = "Toyota", Model = "Camry", Color = "Super White", Price = 26500, Year = 2022, Safty = ["Pre-Collision System", "Lane Tracing Assist", "Airbags", "Radar Cruise Control"] },
+                new Car { Id = 3, Brand = "Tesla", Model = "Model 3", Color = "Ultra Red", Price = 40000, Year = 2024, Safty = ["Autopilot", "Forward Collision Warning", "Automatic Emergency Braking", "Sentry Mode"] },
+                new Car { Id = 4, Brand = "Ford", Model = "Mustang GT", Color = "Grabber Blue", Price = 43000, Year = 2021, Safty = ["ABS", "Traction Control", "Rearview Camera", "AdvanceTrac"] },
+                new Car { Id = 5, Brand = "Honda", Model = "CR-V", Color = "Lunar Silver", Price = 31000, Year = 2023, Safty = ["Collision Mitigation", "Road Departure Mitigation", "Adaptive Cruise Control"] },
+                new Car { Id = 6, Brand = "Audi", Model = "Q5", Color = "Daytona Grey", Price = 55000, Year = 2023, Safty = ["Audi Pre Sense", "Parking System Plus", "Blind Spot Warning", "Rear Cross Traffic Assist"] },
+                new Car { Id = 7, Brand = "Mercedes-Benz", Model = "C-Class", Color = "Obsidian Black", Price = 48000, Year = 2022, Safty = ["Active Brake Assist", "Attention Assist", "Cross-Wind Assist", "Airbags"] },
+                new Car { Id = 8, Brand = "Chevrolet", Model = "Silverado 1500", Color = "Summit White", Price = 42000, Year = 2024, Safty = ["Forward Collision Alert", "Front Pedestrian Braking", "Lane Keep Assist"] },
+                new Car { Id = 9, Brand = "Porsche", Model = "911 Carrera", Color = "Guards Red", Price = 114000, Year = 2023, Safty = ["Warn and Brake Assist", "ParkAssist", "Wet Mode", "Traction Management"] },
+                new Car { Id = 10, Brand = "Hyundai", Model = "Tucson", Color = "Amazon Grey", Price = 28500, Year = 2024, Safty = ["Safe Exit Warning", "Driver Attention Warning", "Rear Occupant Alert", "Lane Keeping Assist"] }
+            ];
+
+
+
+
+            // The first overload 
+            var AllSafty = EditedCars.SelectMany(EC => EC.Safty);
+            Console.WriteLine("The First OverLoad of the Select Many : 'Flatten the result'");
+            foreach (var s in AllSafty)
+                Console.WriteLine($"{s}");
+
+            // the second overload
+            var OneSafty = EditedCars.SelectMany(c => c.Safty , (c , s) => string.Join(',' , s));
+            Console.WriteLine("The second overload of the select Many : 'Group the safty int one line'");
+            foreach (var s in OneSafty)
+                Console.WriteLine($"{s}");
+
+
         }
     }
 

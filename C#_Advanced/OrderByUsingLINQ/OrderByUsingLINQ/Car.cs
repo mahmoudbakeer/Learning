@@ -16,7 +16,9 @@ namespace LINQQueries
         public int Year { get; set; }
         public decimal Price { get; set; }
         public string Color { get; set; }
-
+        // for exercise
+        public List<string> Safty { get; set; }
+  
         // Static Print Method
         public static void Print(IEnumerable<Car> cars)
         {
@@ -148,13 +150,16 @@ namespace LINQQueries
         public int Year { get; set; }
         public decimal Price { get; set; }
         public int index { get; set; }
-        public CarDto(int id , string brand , int year , decimal price , int index)
+        public string Safty { get; set; }
+        public CarDto(int id , string brand , int year , decimal price , int index, string safty)
+
         {
             Id =id;
             Brand = brand;
             Year = year;
             Price = price;
             this.index = index;
+            this.Safty = safty;
         }
     }
 
