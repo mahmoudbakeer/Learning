@@ -167,3 +167,50 @@ Console.WriteLine($"Is set1 a PROPER subset of set2? {set1.IsProperSubsetOf(set2
 
 // True, because set3 is fully inside set1 AND set3 is strictly smaller.
 Console.WriteLine($"Is set3 a PROPER subset of set1? {set3.IsProperSubsetOf(set1)}");
+
+// ==========================================
+// SORTEDSET<T>
+// A collection of UNIQUE elements that maintains a SORTED order automatically.
+// Behind the scenes, it uses a self-balancing binary search tree (Red-Black Tree).
+// Performance: O(log N) for add/remove/search (Slower than HashSet's O(1), but keeps order).
+// ==========================================
+
+// 1. Initialization (It automatically sorts them!)
+SortedSet<int> sortedSet = [4, 5, 6, 2, 7, 9, 22];
+
+Console.WriteLine("--- SortedSet Basics ---");
+Console.WriteLine($"Sorted Set Elements: {string.Join(", ", sortedSet)}");
+// Output: 2, 4, 5, 6, 7, 9, 22
+
+
+// 2. LINQ Operations 
+// Chaining Where (Filter) and Select (Transform)
+var resEvenSquared = sortedSet
+    .Where(n => n % 2 == 0) // Keep only even numbers (2, 4, 6, 22)
+    .Select(n => n * n);    // Square them
+
+Console.WriteLine($"Even Squared Result: {string.Join(", ", resEvenSquared)}");
+// Output: 4, 16, 36, 484
+
+
+// ==========================================
+// 💡 THE SUPERPOWERS OF SORTEDSET
+// Because it's sorted via a tree, it has special native methods!
+// ==========================================
+
+Console.WriteLine("\n--- SortedSet Special Powers ---");
+
+// A. Instant Min & Max 
+// It doesn't need to search the whole list! It just grabs the far-left or far-right tree node.
+Console.WriteLine($"Minimum Value: {sortedSet.Min}"); // 2
+Console.WriteLine($"Maximum Value: {sortedSet.Max}"); // 22
+
+// B. GetViewBetween (Creates a "Window" or subset of the data)
+// Gets all numbers between 5 and 10 (inclusive) extremely fast.
+SortedSet<int> window = sortedSet.GetViewBetween(5, 10);
+Console.WriteLine($"View Between 5 and 10: {string.Join(", ", window)}");
+// Output: 5, 6, 7, 9
+
+// ⚠️ DANGER NOTE ON 'GetViewBetween': 
+// It does NOT copy the data. It is a "live view" of the original set.
+// If you add or remove items from 'window', it will modify 'sortedSet' directly!
