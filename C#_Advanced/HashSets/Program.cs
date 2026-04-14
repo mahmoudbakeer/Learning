@@ -121,3 +121,49 @@ Oset = [1, 2, 6, 3]; // Reset for next example
 // 4. SymmetricExceptWith: Keeps elements that are in ONE of the sets, but NOT in BOTH!
 Oset.SymmetricExceptWith(Eset);
 Console.WriteLine($"Native SymmetricExceptWith (Oset modified): {string.Join(", ", Oset)}");
+
+// ==========================================
+// 17. SET COMPARISONS
+// These methods return boolean values and are highly optimized.
+// The parameter can be a HashSet, Array, List, or any IEnumerable<T>.
+// ==========================================
+
+HashSet<int> set1 = [1, 2, 3, 4];
+HashSet<int> set2 = [1, 2, 3, 4]; // Identical to set1
+HashSet<int> set3 = [1, 2, 3];    // A smaller piece of set1
+
+Console.WriteLine("\n--- Set Comparisons ---");
+
+// 1. SetEquals: Checks if both sets contain the EXACT same elements.
+Console.WriteLine($"Is set1 equal to set2? {set1.SetEquals(set2)}"); // True
+Console.WriteLine($"Is set1 equal to set3? {set1.SetEquals(set3)}"); // False
+
+// 2. IsSubsetOf: Checks if the set is fully contained within the other.
+// Rule of thumb: ChildSet.IsSubsetOf(ParentSet)
+Console.WriteLine($"\nIs set1 a subset of set2? {set1.IsSubsetOf(set2)}"); // True (because they are equal)
+Console.WriteLine($"Is set3 a subset of set1? {set3.IsSubsetOf(set1)}"); // True (all elements of set3 are in set1)
+Console.WriteLine($"Is set1 a subset of set3? {set1.IsSubsetOf(set3)}"); // False (set1 has '4' which is missing in set3)
+
+// 3. IsSupersetOf: Checks if the set fully contains the other.
+// Rule of thumb: ParentSet.IsSupersetOf(ChildSet)
+Console.WriteLine($"\nIs set1 a superset of set2? {set1.IsSupersetOf(set2)}"); // True
+Console.WriteLine($"Is set1 a superset of set3? {set1.IsSupersetOf(set3)}"); // True (set1 contains all of set3)
+Console.WriteLine($"Is set3 a superset of set1? {set3.IsSupersetOf(set1)}"); // False
+
+// 4. Overlaps: Checks if they share AT LEAST ONE common element.
+Console.WriteLine($"\nDoes set1 overlap with set3? {set1.Overlaps(set3)}"); // True (they share 1, 2, and 3)
+
+
+// ==========================================
+// 💡 PRO TIP: PROPER SUBSETS & SUPERSETS
+// ==========================================
+// What if you want to know if set3 is a subset of set1, BUT you want to 
+// guarantee they are NOT exactly equal? (Strictly smaller or larger).
+// Use IsProperSubsetOf / IsProperSupersetOf.
+
+Console.WriteLine("\n--- Proper Comparisons ---");
+// False, because they are exactly equal (A proper subset must be strictly smaller)
+Console.WriteLine($"Is set1 a PROPER subset of set2? {set1.IsProperSubsetOf(set2)}");
+
+// True, because set3 is fully inside set1 AND set3 is strictly smaller.
+Console.WriteLine($"Is set3 a PROPER subset of set1? {set3.IsProperSubsetOf(set1)}");
