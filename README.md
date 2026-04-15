@@ -1,4 +1,4 @@
-# 🚀 Backend Development & Learning Sandbox
+# 🚀 Happy .NET Learning Path
 
 👋 **Welcome to my personal learning repository!** This repository is a living, breathing workspace where I document everything I am currently learning, practicing, and building. From deep dives into advanced C# concepts and Entity Framework Core to mastering T-SQL and optimizing my Vim workflow, this is where theory meets practice.
 
