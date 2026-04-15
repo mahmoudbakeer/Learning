@@ -1,13 +1,60 @@
-﻿using System;
-using System.Linq;
-
+﻿
 // ==========================================
 // EF CORE: BASICS & CRUD OPERATIONS
 // ==========================================
 
-static void GetWallets()
+// --- WHY EXTERNAL CONFIGURATION? ---
+// Here we send the options as parameters (External) instead of hardcoding them inside the DbContext (Internal).
+// Benefits:
+// 1. Separation of Concerns: The DbContext class stays clean; it only cares about your data (DbSets), not the database connection details.
+// 2. Flexibility & Testing: You can easily switch the database (e.g., using an In-Memory DB for Unit Testing) without modifying the DbContext code.
+// 3. DI Ready: This is exactly how ASP.NET Core Dependency Injection works under the hood.
+
+// --- GLOBAL VS LOCAL DECLARATIONS ---
+// Q: Is it better to declare the configuration object inside each method below?
+// A: ABSOLUTELY NOT. You should build the configuration and connection string ONCE at the application startup (Globally).
+// If you put it inside each method, the application will read the physical "appsettings.json" file from the hard drive every time the method is called. Disk I/O is very slow and will ruin your app's performance.
+
+// A. Build the Configuration Object
+// This links our C# code to the "appsettings.json" file to read settings securely.
+using EF002_ExternalConfig;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+// B. Get the Connection String
+// PRO TIP: Instead of GetSection("constr").Value, use the built-in shortcut!
+// This automatically looks for a key inside a "ConnectionStrings" block in your JSON.
+string connectionString = configuration.GetConnectionString("DefaultConnection")
+                          ?? configuration.GetSection("constr").Value!;
+
+// --- WHAT IS DbContextOptionsBuilder? ---
+// It is an EF Core configuration tool. Its job is to collect all the settings your DbContext needs 
+// (like which DB provider to use, connection string, logging mechanisms, etc.) and package them 
+// into a single "Options" object that can be passed to the DbContext constructor.
+
+// Best Practice: Use the generic version <AppDbContext> for type safety.
+DbContextOptionsBuilder<AppDbContext> optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+
+// C. Tell EF Core to use SQL Server with this connection string
+optionsBuilder.UseSqlServer(connectionString);
+
+// Store the final options in a variable to pass to our methods
+var dbOptions = optionsBuilder.Options;
+
+// ==========================================
+// CRUD METHODS
+// ==========================================
+
+// Best Practice: Pass the options as a parameter to simulate how Dependency Injection works.
+static void GetWallets(DbContextOptionsBuilder optionsBuilder)
 {
-    using (var context = new AppDbContext())
+    // Inject the options into the DbContext via its constructor.
+    // The 'using' block ensures the connection is closed and memory is freed immediately after the operation.
+    using (var context = new AppDbContext(optionsBuilder.Options))
     {
         foreach (var item in context.Wallets)
         {
@@ -16,15 +63,17 @@ static void GetWallets()
     }
 }
 
-static void InsetWallet()
+
+
+static void InsetWallet(DbContextOptionsBuilder optionsBuilder)
 {
     Console.WriteLine("Adding Wallet : ");
     Console.Write("Please enter the holder name : ");
-    string name = Console.ReadLine();
+    string name = Console.ReadLine()!;
     Console.Write("Please enter the Balance of the account : ");
-    decimal balance = decimal.Parse(Console.ReadLine());
+    decimal balance = decimal.Parse(Console.ReadLine()!);
 
-    using (var context = new AppDbContext())
+    using (var context = new AppDbContext(optionsBuilder.Options))
     {
         context.Wallets.Add(new Wallet
         {
@@ -52,11 +101,11 @@ static void InsetWallet()
     }
 }
 
-static void UpdateWallet()
+static void UpdateWallet(DbContextOptionsBuilder optionsBuilder)
 {
     Console.Write("Please enter the ID of the account : ");
-    int id = Convert.ToInt32(Console.ReadLine());
-    using (var context = new AppDbContext())
+    int id = Convert.ToInt32(Console.ReadLine()!);
+    using (var context = new AppDbContext(optionsBuilder.Options))
     {
         Console.WriteLine("Updating Wallet : ");
 
@@ -80,10 +129,10 @@ static void UpdateWallet()
         // ==========================================
 
         // Falling back to your original method for the example:
-        var UpdatedWallet = context.Wallets.Single(w => w.Id == id);
+        var UpdatedWallet = context.Wallets.Find(id);
 
         Console.Write("please enter the new Balance : ");
-        decimal balance = Decimal.Parse(Console.ReadLine());
+        decimal balance = Decimal.Parse(Console.ReadLine()!);
 
         UpdatedWallet.Balance = balance; // ChangeTracker detects this as "Modified"
 
@@ -91,13 +140,13 @@ static void UpdateWallet()
     }
 }
 
-static void DeleteWallet()
+static void DeleteWallet(DbContextOptionsBuilder optionsBuilder)
 {
     Console.WriteLine("Deleting Wallet : ");
     Console.Write("Please enter the Id of the account : ");
-    int Id = Int32.Parse(Console.ReadLine());
+    int Id = Int32.Parse(Console.ReadLine()!);
 
-    using (var context = new AppDbContext())
+    using (var context = new AppDbContext(optionsBuilder.Options))
     {
         // Notice: To delete, you must fetch it first so the ChangeTracker knows about it.
         context.Wallets.Remove(context.Wallets.Single(w => w.Id == Id));
@@ -106,10 +155,10 @@ static void DeleteWallet()
     }
 }
 
-static void QueryData()
+static void QueryData(DbContextOptionsBuilder optionsBuilder)
 {
     Console.WriteLine();
-    using (var context = new AppDbContext())
+    using (var context = new AppDbContext(optionsBuilder.Options))
     {
         // LINQ queries are converted directly into SQL "SELECT ... WHERE" statements
         var result = context.Wallets.Where(w => w.Balance > 4000m);
@@ -122,10 +171,10 @@ static void QueryData()
     }
 }
 
-static void Transacion()
+static void Transacion(DbContextOptionsBuilder optionsBuilder)
 {
     Console.WriteLine("Transactions in EF CORE : ");
-    using (var context = new AppDbContext())
+    using (var context = new AppDbContext(optionsBuilder.Options))
     {
         // ==========================================
         // EXPLAINING context.Database (DatabaseFacade)
@@ -147,11 +196,11 @@ static void Transacion()
             try
             {
                 Console.Write("Please enter the account to debit from : ");
-                int DebitId = Int32.Parse(Console.ReadLine());
+                int DebitId = Int32.Parse(Console.ReadLine()!);
                 Console.Write("Please enter the account to credit to : ");
-                int CreditId = Int32.Parse(Console.ReadLine());
+                int CreditId = Int32.Parse(Console.ReadLine()!);
                 Console.Write("Please enter the amount : "); // Fixed WriteLine to Write
-                decimal Amount = Decimal.Parse(Console.ReadLine());
+                decimal Amount = Decimal.Parse(Console.ReadLine()!);
 
                 Wallet DebitWallet = context.Wallets.Single(w => w.Id == DebitId);
                 Wallet CreditWallet = context.Wallets.Single(w => w.Id == CreditId);
@@ -189,7 +238,7 @@ static void Transacion()
 // GetWallets();
 // DeleteWallet();
 
+
 Console.WriteLine("Printing All the wallets from the database : ");
-GetWallets();
-QueryData();
-Transacion();
+GetWallets(optionsBuilder);
+
