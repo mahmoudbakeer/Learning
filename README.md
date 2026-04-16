@@ -46,7 +46,7 @@ Advanced database querying techniques.
 
 ## 🤝 How to Use This Repository
 
-1. **Clone it:** `git clone https://github.com/mahmoudbakeer/[Repo-Name].git`
+1. **Clone it:** `git clone https://github.com/mahmoudbakeer/Learning.git`
 2. **Explore:** Dive into any folder that interests you. The code is heavily commented to explain *why* something was done, not just *how*.
 3. **Use the Code:** Feel free to copy, modify, and use any snippets or project structures for your own personal or professional work.
 4. **Learn Together:** If you see a way to improve a query, optimize a LINQ statement, or want to discuss a specific pattern, feel free to open an issue or reach out!
