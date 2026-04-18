@@ -73,4 +73,30 @@
 }
 // </Snippet208>
 
+(string name, int age, string department)[] Employees =
+[
+   ("Saly", 23, "IT"),
+   ("David", 25, "Sales"),
+   ("Mahmoud", 22, "IT"),
+   ("Qamar", 22, "HR"),
+   ("Sara", 25, "IT"),
+   ("John", 26, "HR"),
+   ("Jaffar", 32, "Sales")
+];
+
+// Count the employees number per the department
+var CountPerDepartment = Employees.CountBy(employee => employee.department);
+
+foreach (var item in CountPerDepartment)
+{
+    Console.WriteLine($"Deprtment : {item.Key} - EmployeesCount : {item.Value}");
+}
+
+/*
+This code produces the following output:
+
+Deprtment : IT - EmployeesCount : 3
+Deprtment : Sales - EmployeesCount : 2
+Deprtment : HR - EmployeesCount : 2
+*/
 UnionByKeySelectorExample();
