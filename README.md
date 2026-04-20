@@ -35,7 +35,7 @@ Advanced database querying techniques.
 
 ---
 
-## 🛠️ Tech Stack & Tools
+##  Tech Stack & Tools
 
 * **Languages:** C#, T-SQL
 * **Frameworks/ORMs:** .NET, Entity Framework Core
@@ -44,7 +44,7 @@ Advanced database querying techniques.
 
 ---
 
-## 🤝 How to Use This Repository
+## How to Use This Repository
 
 1. **Clone it:** `git clone https://github.com/mahmoudbakeer/Learning.git`
 2. **Explore:** Dive into any folder that interests you. The code is heavily commented to explain *why* something was done, not just *how*.
@@ -53,8 +53,8 @@ Advanced database querying techniques.
 
 ---
 
-### 👨‍💻 About the Author
+###  About the Author
 
 **Mahmoud Bakir** *Software Developer | .NET & Backend Architecture* Driven by a passion for clean architecture, open-source contributions, and continuous improvement. 
 
-Happy Coding! 💻✨
+Happy Coding! 
