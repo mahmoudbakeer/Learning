@@ -2,7 +2,7 @@
 
  **Welcome to my personal learning repository!** This repository is a living, breathing workspace where I document everything I am currently learning, practicing, and building. From deep dives into advanced C# concepts and Entity Framework Core to mastering T-SQL and optimizing my Vim workflow, this is where theory meets practice.
 
-I created this space not just for myself, but for the community. **You are more than welcome to join me on this journey, explore the projects, and use any of the code you find here.** I hope these examples, exercises, and projects prove beneficial to your own learning path! 🌟
+I created this space not just for myself, but for the community. **You are more than welcome to join me on this journey, explore the projects, and use any of the code you find here.** I hope these examples, exercises, and projects prove beneficial to your own learning path! 
 
 ---
 
