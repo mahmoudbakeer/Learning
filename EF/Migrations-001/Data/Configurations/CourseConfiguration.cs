@@ -20,8 +20,8 @@ namespace Migrations_001.Data.Configurations
             builder.HasKey(course => course.Id);
             builder.Property(course => course.Id)
                 .ValueGeneratedNever()// do not generate value in migrations, i will pass it
-
                 .IsRequired(); 
+
             // configure the property
             builder.Property(course => course.CourseName)
                 .HasColumnType("VARCHAR")

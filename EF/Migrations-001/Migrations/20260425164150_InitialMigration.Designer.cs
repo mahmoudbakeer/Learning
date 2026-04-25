@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Migrations_001.Data;
 
@@ -11,9 +12,11 @@ using Migrations_001.Data;
 namespace Migrations_001.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260425164150_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,7 +166,8 @@ namespace Migrations_001.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("VARCHAR");
 
                     b.Property<bool>("WED")
                         .HasColumnType("bit");
@@ -181,6 +185,9 @@ namespace Migrations_001.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
                     b.Property<int?>("InstructorId")
                         .HasColumnType("int");
 
@@ -191,6 +198,9 @@ namespace Migrations_001.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("VARCHAR");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -269,35 +279,11 @@ namespace Migrations_001.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Migrations_001.Entities.TimeSlot", "TimeSlot", b1 =>
-                        {
-                            b1.Property<int>("SectionId")
-                                .HasColumnType("int");
-
-                            b1.Property<TimeSpan>("EndTime")
-                                .HasColumnType("time")
-                                .HasColumnName("EndTime");
-
-                            b1.Property<TimeSpan>("StartTime")
-                                .HasColumnType("time")
-                                .HasColumnName("StartTime");
-
-                            b1.HasKey("SectionId");
-
-                            b1.ToTable("Sections");
-
-                            b1.WithOwner()
-                                .HasForeignKey("SectionId");
-                        });
-
                     b.Navigation("Course");
 
                     b.Navigation("Instructor");
 
                     b.Navigation("Schedule");
-
-                    b.Navigation("TimeSlot")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Migrations_001.Entities.Course", b =>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace Migrations_001.Entities
         public int Id { get; set; }
         public string CourseName { get; set; }
         public decimal Price { get; set; }
+        public ICollection<Section> Sections { get; set; } = new List<Section>();
     }
 }
