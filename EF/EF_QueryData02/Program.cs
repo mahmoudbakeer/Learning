@@ -142,7 +142,104 @@ internal class Program
                 );
             }
             Console.WriteLine();
+
+            var LeftJoinQuerySyn =
+                from c in context.Offices.AsNoTracking()
+                join sec in context.Instructors on c.Id equals sec.OfficeId into OfficeInstructor
+                from cv in OfficeInstructor.DefaultIfEmpty()
+                select new
+                {
+                    OfficeName = c.OfficeName,
+                    OfficeLocation = c.OfficeLocation,
+                    InstructorName = cv == null ? "Not Occupied" : cv.LastName + " " + cv.FirstName,
+                };
+
+            // with method syntax
+            var LeftJoinMethodSyn = context
+                .Offices.AsNoTracking()
+                .GroupJoin(
+                    context.Instructors.AsNoTracking(),
+                    office => office.Id,
+                    instructor => instructor.OfficeId,
+                    (office, instructor) => new { office, instructor }
+                )
+                .SelectMany(
+                    officeInstructor => officeInstructor.instructor.DefaultIfEmpty(),
+                    (OI, inst) =>
+                        new
+                        {
+                            OfficeName = OI.office.OfficeName,
+                            OfficeLocation = OI.office.OfficeLocation,
+                            InstructorName = inst == null
+                                ? "Not Occupied"
+                                : inst.LastName + " " + inst.FirstName,
+                        }
+                );
+
+            // lets print it
+            Console.WriteLine();
+            Console.WriteLine("The result of Left join :");
+            foreach (var item in LeftJoinMethodSyn)
+            {
+                Console.WriteLine(
+                    $"OfficeName : {item.OfficeName} - OfficeLocation : {item.OfficeLocation} - InstructorName : {item.InstructorName}"
+                );
+            }
+            Console.WriteLine();
+
+            // note there is no need to write code for cross join
+            // the cross join mean that each row of the first table will be combined with each row in the opposite table
+            // this will produce the Cartesian product , means 100 row in first table and 200 row in the second , will produce 20000 row
+
+            // now with the select many exerxises
+            // we want to get all the students names studing in CourseName 'CS-50'
+            var CsStudnets = context
+                .Courses.AsNoTracking()
+                .Where(course => course.CourseName == "CS-50")
+                .SelectMany(course => course.Sections)
+                .SelectMany(
+                    cs => cs.Enrollments,
+                    (section, enrollment) =>
+                        new
+                        {
+                            StudentName = enrollment.Student.FirstName
+                                + " "
+                                + enrollment.Student.LastName,
+                            SectionName = section.SectionName,
+                        }
+                );
+            Console.WriteLine("SelectMany, Students studing the CS-50 : ");
+            foreach (var item in CsStudnets)
+            {
+                Console.WriteLine(
+                    $"SectionName : {item.SectionName} - StudentName : {item.StudentName}"
+                );
+            }
+            Console.WriteLine();
+
+            var InstructorSection = context
+                .Sections.AsNoTracking() // Always use for read-only queries!
+                .GroupBy(
+                    sect => sect.Instructor, // The Key we are grouping by
+                    (Inst, sectionsGroup) =>
+                        new
+                        {
+                            InstructorName = Inst.FirstName + " " + Inst.LastName,
+
+                            //  Extract ONLY the SectionNames as a list of strings
+                            SectionNames = sectionsGroup.Select(s => s.SectionName).ToList(),
+                        }
+                )
+                .ToList(); // Execute the query
+
+            Console.WriteLine("GroupBy, Instructor teaching in sections:");
+            foreach (var item in InstructorSection)
+            {
+                Console.WriteLine($"\tInstructorName : {item.InstructorName}");
+
+                // Now String.Join works beautifully because it's joining a list of pure strings!
+                Console.WriteLine($"\tSections : {string.Join(", ", item.SectionNames)}\n");
+            }
         }
     }
 }
-
