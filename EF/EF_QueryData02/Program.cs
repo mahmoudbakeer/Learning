@@ -240,6 +240,45 @@ internal class Program
                 // Now String.Join works beautifully because it's joining a list of pure strings!
                 Console.WriteLine($"\tSections : {string.Join(", ", item.SectionNames)}\n");
             }
+            Console.WriteLine();
+
+            // now with the pagination
+            // instead of getting the whole data as one single query, we can use the pagination
+            // means at each time we want more we get specific number of rows
+            // that significantly reduces the pressure on the server and enhance the performance
+            // please make sure to turnoff this when you want to runt the code
+            Console.Clear();
+            var QueryResult = context
+                .Sections.Include(sec => sec.Instructor)
+                .Include(sec => sec.Schedule)
+                .Include(sec => sec.Course);
+
+            // now with the pagination
+            var pageSize = 2;
+            var totalPages = (int)Math.Ceiling((double)QueryResult.Count() / pageSize);
+            var pageNumber = 1;
+
+            Console.WriteLine("The Pages : ");
+            while (pageNumber <= totalPages)
+            {
+                var tempPage = QueryResult.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+                foreach (var item in tempPage)
+                {
+                    Console.WriteLine("=========================================================");
+                    Console.WriteLine($"SectionName : {item.SectionName}");
+                    Console.WriteLine(
+                        $"The instructorName : {item.Instructor.FirstName} - {item.Instructor.LastName}"
+                    );
+                    Console.WriteLine($"The ScheduleTitle : {item.Schedule.Title.ToString()}");
+                    Console.WriteLine($"The CourseName : {item.Course.CourseName}");
+                    Console.WriteLine("=========================================================");
+                }
+                Console.WriteLine($"The Page Number : {pageNumber}");
+                Console.WriteLine();
+                Console.WriteLine();
+                ++pageNumber;
+                Console.ReadKey();
+            }
         }
     }
 }
