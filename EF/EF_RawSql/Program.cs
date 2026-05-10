@@ -77,4 +77,35 @@ using (var context = new AppDbContext())
             $"CourseName : {item.CourseName} - SectionName : {item.SectionName} - InstructorName : {item.InstructorName} - Title : {item.Title} - Time : {item.StartTime} to {item.EndTime}"
         );
     }
+
+    // now with the sql user-defined functions calling in the EF core,
+    // first the Scalar value function
+    // the configuration of the scalar done in the DbContext class check it out to know how we have done it
+    // one thing to know is that calling the function should be done iside the linq  query
+    var SectionsStudents = context
+        .Sections.Select(section => new
+        {
+            SectionName = section.SectionName,
+            StudentsCount = context.GetNumberOfStudentsPerSection(section.SectionName),
+        })
+        .Distinct()
+        .ToList();
+    Console.WriteLine("Use the user-defined Scalar Function: ");
+    foreach (var item in SectionsStudents)
+    {
+        Console.WriteLine(
+            $"The SectionName : {item.SectionName} - StudentsAttending : {item.StudentsCount}"
+        );
+    }
+
+    Console.WriteLine();
+    Console.WriteLine();
+    // now lets call the TVFs and its actually like the any collection we can perform linq ops on item
+    Console.WriteLine("The Result of the table valued function is : ");
+    foreach (var item in context.Sections.ToList())
+    {
+        var StudentsPerSection = context.GetStudentsPerSectionShift(item.SectionName).ToList();
+        foreach (var std in StudentsPerSection)
+            Console.WriteLine(std);
+    }
 }

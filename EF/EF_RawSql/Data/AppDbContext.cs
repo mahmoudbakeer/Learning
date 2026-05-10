@@ -26,6 +26,13 @@ public class AppDbContext : DbContext
         // the best practice is to make group call configuration
         // use the ApplyConfigurationFromAssembly()
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly); // this will seach on configurations in the assembly that implement the IEntityTypeConfiguraiton
+
+        // now lets spicify the TVFs, means configure it
+        modelBuilder
+            .HasDbFunction(
+                typeof(AppDbContext).GetMethod(nameof(AppDbContext.GetStudentsPerSectionShift))
+            )
+            .HasName("GetNumberOfStudentsPerSectionShifts");
     }
 
     // bad practice, always use the DI but since this is Learning project no worries
@@ -45,4 +52,13 @@ public class AppDbContext : DbContext
             .UseSqlServer(conStr)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
     }
+
+    [DbFunction("GetNumberOfStudentsPerSection", "dbo")]
+    public int GetNumberOfStudentsPerSection(string SectionName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IQueryable<StudentsPerSectionShift> GetStudentsPerSectionShift(string sectionname) =>
+        FromExpression(() => GetStudentsPerSectionShift(sectionname));
 }
