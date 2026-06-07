@@ -1,0 +1,7 @@
+### 
+
+@URL = https://localhost:7178
+
+# # GET the wather
+
+GET {{URL}}/Weather/City/Syria HTTP/1.1

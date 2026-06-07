@@ -1,0 +1,8 @@
+### Get Request
+Get http://localhost:5000/authors/mahmoud
+Content-Type : application/json
+
+{
+"Name" : "MahmoudBakir",
+"Phone" : "8860569949"
+}

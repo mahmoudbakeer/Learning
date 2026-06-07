@@ -1,0 +1,11 @@
+﻿@Url = https://localhost:7171
+
+### GET the Configurations using the IOptions<AppSettings> 
+GET {{Url}}/ioptions
+
+### GET the Configurations using the IOptionsSnapshot<AppSettings> 
+GET {{Url}}/ioptions-snapshot
+
+
+### GET the Configurations using the IOptionsMonitor<AppSettings> 
+GET {{Url}}/ioptions-monitor

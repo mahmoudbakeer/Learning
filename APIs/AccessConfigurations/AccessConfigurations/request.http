@@ -1,0 +1,16 @@
+﻿
+## Get the Configuration by name
+GET http://localhost:5003/get-by-name
+
+
+### Get the Configuration by path
+GET http://localhast:5003/get-by-path
+
+### Get the Configuration by value
+GET http://localhost:5003/get-by-value
+
+### Get the Configuration section
+GET http://localhost:5003/get-Section
+
+### Get the Configuration section
+GET http://localhost:5003/get-Section-Bind
