@@ -43,6 +43,8 @@ app.Use(
 );
 
 // app.Map() creates a new pipeline branch specifically for requests matching the "/Employee" route.
+// The important thing is that Map() itself is the branching middleware.
+// Once it decides the request belongs to the branch, the rest of the main pipeline is no longer part of the execution path.
 // Uncomment to test:
 // app.Map(
 //     "/Employee",
