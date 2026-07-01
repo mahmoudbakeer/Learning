@@ -1,0 +1,31 @@
+### 
+
+POST https://localhost:7070/products-minimal HTTP/1.1
+Content-Type: application/json
+
+{
+  "name" : "mahmoud",
+  "price" : 20.2
+}
+
+
+### 
+
+POST https://localhost:7070/products-controller HTTP/1.1
+Content-Type: application/json
+
+{
+  "name" : "mahmoud",
+  "price" : "20.2"
+}
+
+
+### 
+
+POST https://localhost:7070/products-controller HTTP/1.1
+Content-Type: application/xml
+
+<ProductRequest>
+  <Name>mahmoud</Name>
+  <Price>2034.2</Price>
+</ProductRequest>

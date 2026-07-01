@@ -1,0 +1,10 @@
+### 
+
+GET https://localhost:7070/products-minimal HTTP/1.1
+X-Api-Version: v1
+
+
+### 
+
+GET https://localhost:7070/products-controller HTTP/1.1
+X-Api-Version: v1

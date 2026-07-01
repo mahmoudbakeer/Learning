@@ -1,0 +1,43 @@
+### 
+
+GET https://localhost:7070/products-minimal?id=21 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/products-minimal-1?id=21 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/products-controller?id=21 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/bools-minimal-array?bools=true&bools=false HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/bools-controller-array?bools=true&bools=false HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/daterange-minimal-complex?query=samer&FromDate=2026-1-1&ToDate=2027-1-1 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/daterange-controller-complex?query=samer&FromDate=2026-1-1&ToDate=2027-1-1 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/daterangequery-minimal-ComplexQuery?DateRange=2026-1-1,2027-1-1 HTTP/1.1
+
+
+###
+
+GET https://localhost:7070/daterangequery-controller-ComplexQuery?DateRange=2026-1-1,2027-1-1 HTTP/1.1

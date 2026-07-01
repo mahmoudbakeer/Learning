@@ -1,0 +1,12 @@
+### 
+
+GET https://localhost:7070/minimal/prefrences HTTP/1.1
+Cookie: theme=dark
+Cookie: language=AR
+
+
+### 
+
+GET https://localhost:7070/Prefrences HTTP/1.1
+Cookie: theme=dark
+Cookie: language=AR

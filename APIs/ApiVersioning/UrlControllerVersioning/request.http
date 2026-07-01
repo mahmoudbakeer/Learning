@@ -1,0 +1,13 @@
+### 
+
+GET https://localhost:7070/api/products/1 HTTP/1.1
+
+
+###
+
+GET https://localhost:7070/api/v1/products/1 HTTP/1.1
+
+
+###
+
+GET https://localhost:7070/api/v2/products/1 HTTP/1.1

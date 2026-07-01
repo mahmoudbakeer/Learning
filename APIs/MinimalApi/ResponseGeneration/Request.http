@@ -1,0 +1,18 @@
+### 
+
+GET https://localhost:7070/api/products-le-ir HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/api/products-le-tr HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/api/products-mr-ir HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/api/products-mr-tr HTTP/1.1
