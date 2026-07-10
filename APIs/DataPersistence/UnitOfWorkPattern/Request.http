@@ -1,0 +1,80 @@
+### 
+
+OPTIONS https://localhost:7070/api/products HTTP/1.1
+
+
+### 
+
+HEAD https://localhost:7070/api/products/2779ee47-10b0-4bd7-8342-404006aa1392 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/api/products/2779ee47-10b0-4bd7-8342-404006aa1392 HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/api/products/2779ee47-10b0-4bd7-8342-404006aa1392?includereviews=true HTTP/1.1
+
+
+### 
+
+POST https://localhost:7070/api/products/2779ee47-10b0-4bd7-8342-404006aa1392/Reviews HTTP/1.1
+Content-Type: application/json
+
+{
+"Reviewer": "Mahmoud",
+"Stars" : 4
+}
+
+
+### 
+
+GET https://localhost:7070/api/products?page=1&pagesize=3 HTTP/1.1
+
+
+### 
+
+POST https://localhost:7070/api/products HTTP/1.1
+Content-Type: application/json
+
+{
+  "name" : "mahmoud",
+  "price" : 33.33
+}
+
+
+### 
+
+PUT https://localhost:7070/api/products/2779ee47-10b0-4bd7-8342-404006aa1392 HTTP/1.1
+Content-Type: application/json
+
+{ 
+  "name" : "samer",
+  "price" : 33.22
+}
+
+
+### 
+
+PATCH https://localhost:7070/api/products/2779ee47-10b0-4bd7-8342-404006aa1392 HTTP/1.1
+Content-Type: application/json
+
+[
+  {
+    "op": "replace",
+    "path": "/price",
+    "value": 2.22
+  }
+]
+
+
+### 
+
+GET https://localhost:7070/api/products/csv HTTP/1.1
+
+
+### 
+
+GET https://localhost:7070/api/products/legacy HTTP/1.1

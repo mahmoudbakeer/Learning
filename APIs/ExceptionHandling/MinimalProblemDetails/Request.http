@@ -1,0 +1,39 @@
+### 
+
+# Minimal API
+
+
+### Server Error
+
+GET https://localhost:7070/api/minimal/server-error HTTP/1.1
+Content-Type: application/json
+
+
+### Bad Request
+
+POST https://localhost:7070/api/minimal/bad-request HTTP/1.1
+Content-Type: application/json
+
+
+### Not Found
+
+POST https://localhost:7070/api/minimal/not-found HTTP/1.1
+Content-Type: application/json
+
+
+### Unauthorized
+
+POST https://localhost:7070/api/minimal/unauthorized HTTP/1.1
+Content-Type: application/json
+
+
+### Conflict
+
+POST https://localhost:7070/api/minimal/conflict HTTP/1.1
+Content-Type: application/json
+
+
+### Business Rule Error
+
+POST https://localhost:7070/api/minimal/business-rule-error HTTP/1.1
+Content-Type: application/json
