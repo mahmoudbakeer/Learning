@@ -1,0 +1,70 @@
+### 
+
+POST https://localhost:7070/api/token/generate HTTP/1.1
+Content-Type: application/json
+
+{
+  "Id": "79410514-0136-4442-be9b-01f097c57f7a",
+  "FirstName": "Primary",
+  "LastName": "Manager",
+  "Email": "pm@localhost",
+  "Permissions": [
+    "project:create",
+    "project:read",
+    "project:update",
+    "project:delete",
+    "project:assign_member",
+    "project:manage_budget",
+    "task:create",
+    "task:read",
+    "task:update",
+    "task:delete",
+    "task:assign_use ",
+    "task:update_status"
+  ],
+  "Roles": [
+    "ProjectManager"
+  ]
+}
+
+
+### 
+
+POST https://localhost:7070/api/token/generate HTTP/1.1
+Content-Type: application/json
+
+{
+  "Id": "b1c2d3e4-f5g6-7h8i-9j0k-1l2m3n4o5p6q",
+  "FirstName": "John",
+  "LastName": "Doe",
+  "Email": "john.doe@localhost",
+  "Permissions": [
+    "project:read",
+    "task:read",
+    "task:update_status",
+    "task:comment"
+  ],
+  "Roles": [
+    "TeamMember"
+  ]
+}
+
+
+### 
+
+POST https://localhost:7070/api/token/generate HTTP/1.1
+Content-Type: application/json
+
+{
+  "Id": "c7d8e9f0-g1h2-i3j4-k5l6-m7n8o9p0q1r2",
+  "FirstName": "Emily",
+  "LastName": "White",
+  "Email": "emily.white@localhost",
+  "Permissions": [
+    "project:read",
+    "task:read"
+  ],
+  "Roles": [
+    "Stakeholder"
+  ]
+}
