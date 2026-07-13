@@ -1,0 +1,38 @@
+### 
+
+GET https://localhost:7090/login HTTP/1.1
+
+
+### 
+
+GET https://localhost:7090/logout HTTP/1.1
+
+
+### 
+
+GET https://localhost:7090/user HTTP/1.1
+
+
+### 
+
+GET https://localhost:7090/secure HTTP/1.1
+
+
+### 
+
+GET https://localhost:7090/SupervisorAndAdmin-only HTTP/1.1
+
+
+### 
+
+GET https://localhost:7090/Admin-only HTTP/1.1
+
+
+###
+
+GET https://localhost:7090/Passkey-claim HTTP/1.1
+
+
+###
+
+GET https://localhost:7090/PasskeyAndAdmin-policy HTTP/1.1

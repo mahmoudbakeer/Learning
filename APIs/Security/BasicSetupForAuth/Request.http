@@ -1,0 +1,13 @@
+### 
+
+GET https://localhost:7090/login HTTP/1.1
+
+
+###
+
+GET https://localhost:7090/logout HTTP/1.1
+
+
+###
+
+GET https://localhost:7090/user HTTP/1.1

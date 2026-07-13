@@ -1,0 +1,50 @@
+Building the Fortress: 
+If you look at a junior developer's codebase, you will usually find all the validation stuffed into one place—a massive 500-line Controller method that checks formatting, queries the database, and enforces business rules all at once.
+
+Senior developers approach validation differently. They treat their application like a medieval fortress. You don't put all your guards at the front gate; you set up multiple checkpoints based on exactly what needs to be protected. In software architecture, this is called Defense in Depth.
+
+Here is how you structure the four layers of validation in a modern ASP.NET Core application.
+
+Layer 1: The Bouncer (Structural Validation)
+Where it lives: The API Edge (Minimal API IEndpointFilter + FluentValidation)
+
+Before someone even gets inside your application, you check their ID and dress code. This layer is entirely about shape and format.
+
+What it checks: Is the email formatted like an email? Is the password longer than 8 characters? Did they leave the "Name" field blank?
+
+The Rule: Never talk to the database here.
+
+Why we do it: We want to "Fail Fast." If a user sends a completely empty JSON payload, we shouldn't waste precious CPU cycles or database connections trying to process it. We bounce them immediately with a 400 Bad Request.
+
+Layer 2: The Manager (State-Based Validation)
+Where it lives: The Application Layer (Services or MediatR Command Handlers)
+
+The user passed the bouncer because their data looks correct. Now, the Manager has to check the current reality of the system. This layer requires I/O (Input/Output) to see what is currently happening in the database.
+
+What it checks: Does the Product ID they are trying to buy actually exist? Is this email address already registered to someone else?
+
+The Rule: Coordinate, don't execute.
+
+Why we do it: The API Edge can't do this because it doesn't have database access. The core Domain logic shouldn't do this because pure C# entities shouldn't be making database calls. The Application Layer acts as the perfect middleman to check the database state and throw an error if the action isn't possible right now.
+
+Layer 3: The Expert (Domain Validation)
+Where it lives: The Domain Layer (Rich C# Entities / Aggregates)
+
+The data is formatted correctly, and the items exist in the database. Now we hand the request to the core business logic. This layer enforces the strict, unbending rules of the company.
+
+What it checks: Can a user apply a 20% discount code to an item that is already on clearance? Can an order be cancelled if its status is already marked as "Shipped"?
+
+The Rule: The objects must protect themselves.
+
+Why we do it: Business rules change constantly. If you put business rules in your database or your API, they become a nightmare to test and update. By putting these rules inside pure C# classes, you guarantee that an Order can never be put into an illegal state, regardless of whether the request came from a Web API, a Mobile App, or a Background Worker.
+
+Layer 4: The Vault (Data Integrity Validation)
+Where it lives: The Database Schema (EF Core Configurations, SQL Constraints)
+
+This is your absolute final line of defense. Even with the best C# code in the world, race conditions happen. If two users click the "Register" button at the exact same millisecond, your Application Layer might check the database, see the email is available for both, and try to create two identical accounts.
+
+What it checks: Unique Constraints (Email must be unique), Foreign Key Constraints (You cannot delete a User who still has active Orders).
+
+The Rule: Trust no one, not even your own code.
+
+Why we do it: Because networks lag and concurrent requests overlap. The database engine is the single source of truth and the only thing capable of locking a row to prevent duplicate data from corrupting your system.
