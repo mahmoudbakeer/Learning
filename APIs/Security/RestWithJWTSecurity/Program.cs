@@ -34,6 +34,8 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using RestWithJWTSecurity.Controllers;
+using RestWithJWTSecurity.Permissions;
 using RestWithJWTSecurity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,7 +64,7 @@ builder
         {
             ValidateIssuer = true,
             ValidIssuer = configs["Issuer"], // Must match the server that created it
-
+            ClockSkew = TimeSpan.Zero, // No tolerance for the token expiration
             ValidateAudience = true,
             ValidAudience = configs["Audience"], // Must be meant for this specific API
 
@@ -77,7 +79,64 @@ builder
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    // Project Permissions
+    options.AddPolicy(
+        Permission.Project.Create,
+        policy => policy.RequireClaim("Permission", Permission.Project.Create)
+    );
+    options.AddPolicy(
+        Permission.Project.Read,
+        policy => policy.RequireClaim("Permission", Permission.Project.Read)
+    );
+    options.AddPolicy(
+        Permission.Project.Update,
+        policy => policy.RequireClaim("Permission", Permission.Project.Update)
+    );
+    options.AddPolicy(
+        Permission.Project.Delete,
+        policy => policy.RequireClaim("Permission", Permission.Project.Delete)
+    );
+    options.AddPolicy(
+        Permission.Project.AssignMember,
+        policy => policy.RequireClaim("Permission", Permission.Project.AssignMember)
+    );
+    options.AddPolicy(
+        Permission.Project.ManageBudget,
+        policy => policy.RequireClaim("Permission", Permission.Project.ManageBudget)
+    );
+
+    // Task Permissions
+    options.AddPolicy(
+        Permission.Task.Create,
+        policy => policy.RequireClaim("Permission", Permission.Task.Create)
+    );
+    options.AddPolicy(
+        Permission.Task.Read,
+        policy => policy.RequireClaim("Permission", Permission.Task.Read)
+    );
+    options.AddPolicy(
+        Permission.Task.Update,
+        policy => policy.RequireClaim("Permission", Permission.Task.Update)
+    );
+    options.AddPolicy(
+        Permission.Task.Delete,
+        policy => policy.RequireClaim("Permission", Permission.Task.Delete)
+    );
+    options.AddPolicy(
+        Permission.Task.AssignUser,
+        policy => policy.RequireClaim("Permission", Permission.Task.AssignUser)
+    );
+    options.AddPolicy(
+        Permission.Task.UpdateStatus,
+        policy => policy.RequireClaim("Permission", Permission.Task.UpdateStatus)
+    );
+    options.AddPolicy(
+        Permission.Task.Comment,
+        policy => policy.RequireClaim("Permission", Permission.Task.Comment)
+    );
+});
 builder.Services.AddControllers();
 var app = builder.Build();
 

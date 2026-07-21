@@ -82,7 +82,7 @@ public class JwtTokenProvider(IConfiguration configure)
 
             // Note: Refresh tokens are usually stored in a database to allow the user
             // to get a new AccessToken without logging in again.
-            RefreshToken = "SGVsbG9UaGlzSXNNeVJlZnJlc2hUb2tlbg==",
+            RefreshToken = "ThisIsTheRefireshTokenForTestingPurposesOnly",
         };
     }
 }
