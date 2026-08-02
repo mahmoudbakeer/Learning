@@ -1,0 +1,33 @@
+@url = https://localhost:7284
+@ProductId = 2779ee47-10b0-4bd7-8342-404006aa1392
+
+
+
+###
+GET https://localhost:7284/api/products
+
+
+### 
+GET {{url}}/api/products/{{ProductId}}
+
+###
+POST {{url}}/api/products
+Content-Type: application/json
+
+{
+    "Name" : "Mahmoud",
+    "Price" : "23.99"
+}
+
+###
+PUT {{url}}/api/products/{{ProductId}}
+Content-Type: application/json
+
+
+{
+    "Name" : "Samer",
+    "Price" : "233.99"
+}
+
+###
+DELETE  {{url}}/api/products/{{ProductId}}

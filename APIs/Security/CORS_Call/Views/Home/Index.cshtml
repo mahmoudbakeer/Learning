@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<ul id="bookings-ul" class="list-group list-group-flush">
+
+</ul>
+
+
+@section Scripts {
+    <script>
+        const url = "https://localhost:8080/api/bookings";
+        const bookingsUIElement = document.getElementById("bookings-ul");
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => showBookings(data))
+            .catch(error => {
+                console.error(error);
+            });
+
+        function showBookings(bookings) {
+            bookings.forEach(b => {
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between";
+
+                li.innerHTML = `
+                                    <div class="fw-bold">Room: <span class="text-primary">${b.room}</span></div>
+                                    <div>Customer: ${b.customerName}</div>
+                                    <div>Check-In: ${new Date(b.checkIn).toLocaleDateString()}</div>
+                                    <div>Check-Out: ${new Date(b.checkOut).toLocaleDateString()}</div>
+                                `;
+                bookingsUIElement.appendChild(li);
+            });
+        }
+    </script>
+}

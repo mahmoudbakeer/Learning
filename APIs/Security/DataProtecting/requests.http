@@ -1,0 +1,21 @@
+
+
+###
+GET https://localhost:7134/api/bids
+
+###
+GET https://localhost:7134/api/bids/e99bd4aa-acb0-491d-888e-8a3af546c96d
+
+###
+POST https://localhost:7134/api/bids
+content-type: application/json
+
+{
+  "amount": 150.00,
+  "firstName": "Mahmoud",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "telephone": "+1234567890",
+  "location": "Amman",
+  "address": "123 Rainbow Street"
+}
