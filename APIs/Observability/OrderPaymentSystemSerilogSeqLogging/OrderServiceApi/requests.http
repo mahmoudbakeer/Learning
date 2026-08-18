@@ -1,0 +1,40 @@
+@baseUrl = http://localhost:5167 
+
+@orderId = 822a756d-be74-4a5b-bbce-ce96621255fe
+
+###
+GET {{baseUrl}}/api/orders/{{orderId}}
+
+### 
+POST {{baseUrl}}/api/orders
+Content-Type: application/json
+
+{
+  "customerId": "c184e3f4-72a5-4810-a7d2-78eec6b90e8d",
+  "items": [
+    {
+      "productId": "4d69e7af-b2aa-456a-bd50-6c7f451c7216",
+      "quantity": 2,
+      "unitPrice": 19.99
+    },
+    {
+      "productId": "b8cb1889-1566-45c5-96ea-22b207d6bde6",
+      "quantity": 1,
+      "unitPrice": 49.99
+    }
+  ],
+  "totalAmount": 89.97
+}
+
+###
+POST {{baseUrl}}/api/orders/{{orderId}}/payment
+content-Type: application/json
+
+{
+  "paymentMethod": "CreditCard",
+  "cardNumber": "****1234",
+  "cardHolderName": "John Doe"
+}
+
+###
+DELETE {{baseUrl}}/api/orders/{{orderId}}

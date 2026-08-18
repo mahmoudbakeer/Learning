@@ -1,0 +1,66 @@
+services:
+
+  orderservice:
+    build:
+      context: .
+      dockerfile: OrderServiceApi/Dockerfile
+
+    container_name: orderservice
+
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_BaseURL=http://paymentservice:80
+
+    ports:
+      - "5167:80"
+
+    depends_on:
+      - paymentservice
+
+    networks:
+      - ops
+
+    volumes:
+      - sqlite_data_orderservice:/app/data
+
+
+  paymentservice:
+    build:
+      context: .
+      dockerfile: PaymentServiceApi/Dockerfile
+
+    container_name: paymentservice
+
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+
+    ports:
+      - "9093:80"
+
+    networks:
+      - ops
+  ops-seq:
+    image: datalust/seq:latest
+    container_name: ops-seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=Password123!
+    ports:
+      - "5341:5341"
+      - "8081:80"
+    networks:
+      - ops
+    volumes:
+      - seq_data_v2:/data  #  CHANGED THIS TO v2
+
+
+networks:
+  ops:
+    driver: bridge
+
+
+volumes:
+  sqlite_data_orderservice: {}
+  seq_data_v2: {}

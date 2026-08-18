@@ -1,0 +1,103 @@
+services:
+
+  orderservice:
+    build:
+      context: .
+      dockerfile: OrderServiceApi/Dockerfile
+
+    container_name: orderservice
+
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_BaseURL=http://paymentservice:80
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://ops-seq:5341/ingest/otlp/v1/traces
+      - OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+
+    ports:
+      - "5167:80"
+
+    depends_on:
+      - paymentservice
+      - ops-seq
+
+    networks:
+      - ops
+
+    volumes:
+      - sqlite_data_orderservice:/app/data
+
+
+  paymentservice:
+    build:
+      context: .
+      dockerfile: PaymentServiceApi/Dockerfile
+
+    container_name: paymentservice
+
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+
+    ports:
+      - "9093:80"
+
+    networks:
+      - ops
+
+
+  ops-seq:
+    image: datalust/seq:latest
+    container_name: ops-seq
+
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=Password123!
+
+    ports:
+      - "5341:5341"
+      - "8081:80"
+
+    networks:
+      - ops
+
+    volumes:
+      - seq_data_v2:/data
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+
+    ports:
+      - "9090:9090"
+
+    networks:
+        - ops
+
+    volumes:
+      - ./containers/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+    - "3000:3000"
+    environment:
+    - GF_SECURITY_ADMIN_PASSWORD=Password123!
+    depends_on:
+    - prometheus
+    networks:
+      - ops
+
+
+
+networks:
+  ops:
+    driver: bridge
+
+
+volumes:
+  sqlite_data_orderservice: {}
+  seq_data_v2: {}

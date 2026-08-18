@@ -1,0 +1,4 @@
+###
+@ProcessId = 0b578bc3-2940-4493-86ba-a716b8b0fd9f
+
+GET https://localhost:7152/api/process/{{ProcessId}}
