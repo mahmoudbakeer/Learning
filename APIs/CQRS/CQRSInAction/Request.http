@@ -1,0 +1,29 @@
+@URL = http://localhost:5168
+
+@TodoId = 8a6b5acb-d288-4349-8008-ae027749c417
+###
+GET {{URL}}/api/todo/
+###
+GET {{URL}}/api/todo/{{TodoId}}
+###
+
+POST {{URL}}/api/todo
+Content-Type:  application/json
+
+{
+    "Title" : "Go to gym."
+}
+
+
+###
+PUT {{URL}}/api/todo/{{TodoId}}
+Content-Type:  application/json
+
+{
+    "Title"  : "Go to gym.",
+    "Completed" : true
+}
+
+
+###
+DELETE {{URL}}/api/todo/{{TodoId}}
